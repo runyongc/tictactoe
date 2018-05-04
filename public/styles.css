@@ -1,0 +1,29 @@
+.block {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: black;
+    color: white;
+    padding: 14px 28px;
+    font-size: 38px;
+    cursor: pointer;
+    text-align: center;
+}
+table {
+	width: 400px;
+	height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	table-layout: fixed;
+}
+
+td {
+	width: 80px;
+	height: 80px;
+}
+
+.newgamecontainer {
+	margin-left: auto;
+	margin-right: auto;
+}
