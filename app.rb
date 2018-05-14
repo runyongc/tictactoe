@@ -34,6 +34,7 @@ require_relative 'tictactoe.rb'
   
   get '/auth/:provider/callback' do
     session[:profile_picture] = request.env['omniauth.auth']['info']['image']
+    session[:name] = request.env['omniauth.auth']['info']['name']
     redirect '/newgame'
   end
   

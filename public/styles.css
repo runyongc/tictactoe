@@ -23,7 +23,16 @@ td {
 	height: 80px;
 }
 
+body {
+    text-align: center;
+}
+
 .newgamecontainer {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.settings {
+    width: 800px;
+    margin: 0 auto;
 }
