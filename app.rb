@@ -44,8 +44,8 @@ require_relative 'tictactoe.rb'
   end
 
   post '/startgame' do
-    currentGame = TicTacToe.new(params[:difficulty])
-    session[:game] = currentGame
+    @currentGame = TicTacToe.new(params[:difficulty])
+    session[:game] = @currentGame
     redirect '/tictactoe'
   end
 
