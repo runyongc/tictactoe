@@ -1,3 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.5.0'
 gem 'sinatra', '2.0.1'
+gem 'json', '2.1.0'
+gem 'omniauth', '1.8.1'
+gem 'omniauth-facebook', '5.0.0'
+gem 'omniauth-google-oauth2', '0.5.3'
