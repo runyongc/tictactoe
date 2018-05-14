@@ -86,10 +86,18 @@ end
 class TicTacToe
 	attr_accessor :currentBoard, :difficulty, :game_state
 	def initialize(difficulty)
-		@game_state = @initial_game_state = GameTree.new.generate
 		@difficulty = difficulty
+		setupGame
 		@currentBoard = @game_state.board
-		ai_move
+	end
+
+	def setupGame
+		if @difficulty == "hard" 
+			@game_state = @initial_game_state = GameTree.new.generate
+			ai_move
+		elsif @difficulty == "easy"
+			@game_state = GameState.new('X', Array.new(9))
+		end
 	end
 
 	def ai_move
@@ -102,14 +110,17 @@ class TicTacToe
 
 	def player_move(string)
 		move = string.to_i
-		@game_state.moves.find{ |game_state| game_state.board[move.to_i] == 'O' }
-
+		if @difficulty == 'hard'
+			@game_state.moves.find{ |game_state| game_state.board[move.to_i] == 'O' }
+		else 
+			@currentBoard[move] = 'O'
+		end
 	end
 
 	def available_spaces
 		available = []
-		@game_state.board.each_index do |ndx|
-			available << ndx if array[ndx].nil?
+		@currentBoard.each_index do |ndx|
+			available << ndx if @currentBoard[ndx].nil?
 		end
 		available
 	end
@@ -233,9 +244,7 @@ class TicTacToe
 	# end
 
 	def render_board
-    	0.upto(8) do |position|
-      @currentBoard[position] = @game_state.board[position]
-      end
+    	@currentBoard = @game_state.board
     end
 
 
@@ -243,6 +252,7 @@ class TicTacToe
 	def ai_move_easy
 		if @difficulty == "easy" && !@game_state.final_state?
 			move = available_spaces.sample
+			puts "easy move is #{move}"
 			@currentBoard[move] = "X"
 		end
 	end

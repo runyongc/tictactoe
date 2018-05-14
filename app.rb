@@ -1,4 +1,3 @@
-
 require 'sinatra'
 require 'json'
 require 'omniauth'
@@ -15,6 +14,7 @@ require_relative 'tictactoe.rb'
     use Rack::Session::Pool
     set :inline_templates, true
   end
+  
   use OmniAuth::Builder do
     provider :facebook, '1283085635154950','a5249f2819d8857a531a73ed31a7c29e'
     provider :google_oauth2, '763470417567-ki9uikdee72fu5ab53ol611n2dm2pmmh.apps.googleusercontent.com', 'azKGBJvvJzEpgJ8XsngZkCTP'

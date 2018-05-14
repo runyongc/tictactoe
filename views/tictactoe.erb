@@ -74,7 +74,6 @@
 </table>
 </form>
 <div class="newgamecontainer">
-	<p> <%= session[:game].winner %> <%= session[:game].currentBoard %></p>
 	<form method="get" action="newgame">
 	<% if session[:game].winner == "X" %>
 		<p> You lost the game! </p>
