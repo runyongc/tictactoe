@@ -3,6 +3,7 @@ require 'sinatra'
 require 'json'
 require 'omniauth'
 require 'omniauth-facebook'
+require 'omniauth-google-oauth2'
 require_relative 'sinatra_ssl'
 require_relative 'tictactoe.rb'
 
@@ -17,6 +18,7 @@ set :port, 9494
   end
   use OmniAuth::Builder do
     provider :facebook, '1283085635154950','a5249f2819d8857a531a73ed31a7c29e'
+    provider :google_oauth2, '763470417567-ki9uikdee72fu5ab53ol611n2dm2pmmh.apps.googleusercontent.com', 'azKGBJvvJzEpgJ8XsngZkCTP'
     #provider :att, 'client_id', 'client_secret'
   end
 
@@ -29,7 +31,6 @@ set :port, 9494
   
   get '/' do
     erb :index
-    "<a href='https://localhost:9494/auth/facebook'>Login with Facebook</a><br>"
   end
   
   get '/auth/:provider/callback' do
@@ -42,8 +43,8 @@ set :port, 9494
   end
 
   post '/startgame' do
-    game = TicTacToe.new(params[:difficulty])
-    session[:game] = game
+    currentGame = TicTacToe.new(params[:difficulty])
+    session[:game] = currentGame
     redirect '/tictactoe'
   end
 
@@ -55,8 +56,6 @@ set :port, 9494
     session[:game].playGame(params[:tttmove])
     erb :tictactoe
   end
-
-
 
   get '/auth/failure' do
     erb "<h1>Authentication Failed:</h1><h3>message:<h3> <pre>#{params}</pre>"
