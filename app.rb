@@ -4,12 +4,11 @@ require 'json'
 require 'omniauth'
 require 'omniauth-facebook'
 require 'omniauth-google-oauth2'
-require_relative 'sinatra_ssl'
 require_relative 'tictactoe.rb'
 
-set :ssl_certificate, "cert.crt"
-set :ssl_key, "pkey.pem"
-set :port, 9494
+# set :ssl_certificate, "cert.crt"
+# set :ssl_key, "pkey.pem"
+# set :port, 9494
 
 
   configure do
