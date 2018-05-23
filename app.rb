@@ -5,10 +5,6 @@ require 'omniauth-facebook'
 require 'omniauth-google-oauth2'
 require_relative 'tictactoe.rb'
 
-# set :ssl_certificate, "cert.crt"
-# set :ssl_key, "pkey.pem"
-# set :port, 9494
-
 
   configure do
     use Rack::Session::Pool
@@ -21,12 +17,6 @@ require_relative 'tictactoe.rb'
     #provider :att, 'client_id', 'client_secret'
   end
 
-  
-# helpers do
-#     def displayPicture
-#       picture = request.env['omniauth.auth']['info']['image']
-#     end
-#   end
   
   get '/' do
     erb :index
@@ -44,18 +34,26 @@ require_relative 'tictactoe.rb'
   end
 
   post '/startgame' do
-    @currentGame = TicTacToe.new(params[:difficulty])
+    @currentGame = TicTacToe.new(params[:difficulty], params[:gridsize])
     session[:game] = @currentGame
     redirect '/tictactoe'
   end
 
   get '/tictactoe' do
-    erb :tictactoe
+    if session[:game].gridsize == "3"
+      erb :tictactoe
+    elsif session[:game].gridsize == "4"
+      erb :tictactoe4x4
+    end
   end
 
   get '/playermoved' do
     session[:game].playGame(params[:tttmove])
-    erb :tictactoe
+    if session[:game].gridsize == "3"
+      erb :tictactoe
+    elsif session[:game].gridsize == "4"
+      erb :tictactoe4x4
+    end
   end
 
   get '/auth/failure' do

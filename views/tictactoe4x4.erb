@@ -1,0 +1,140 @@
+<form method="get" action="playermoved">
+<table>
+<tbody>
+<tr>
+<td>
+ <% if session[:game].currentBoard[0] == nil %>
+	<button class="block" type="submit" name="tttmove" value="0"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[0] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[1] == nil %>
+	<button class="block" type="submit" name="tttmove" value="1"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[1] %> </button>
+ <% end %>	
+</td>
+<td>
+ <% if session[:game].currentBoard[2] == nil %>
+	<button class="block" type="submit" name="tttmove" value="2"></button>
+ <% else %>
+	<button class="block" type="button" disabled> <%= session[:game].currentBoard[2] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[3] == nil %>
+	<button class="block" type="submit" name="tttmove" value="3"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[3] %> </button>
+ <% end %>
+</td>
+</tr>
+<tr>
+<td>
+ <% if session[:game].currentBoard[4] == nil %>
+	<button class="block" type="submit" name="tttmove" value="4"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[4] %> </button>
+ <% end %>	
+</td>
+<td>
+ <% if session[:game].currentBoard[5] == nil %>
+	<button class="block" type="submit" name="tttmove" value="5"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[5] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[6] == nil %>
+	<button class="block" type="submit" name="tttmove" value="6"></button>
+ <% else %>
+	<button class="block" type="button" disabled> <%= session[:game].currentBoard[6] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[7] == nil %>
+	<button class="block" type="submit" name="tttmove" value="7"></button>
+ <% else %>
+	<button class="block" type="button" disabled> <%= session[:game].currentBoard[7] %> </button>
+ <% end %>
+</td>
+</tr>
+<tr>
+<td>
+ <% if session[:game].currentBoard[8] == nil %>
+	<button class="block" type="submit" name="tttmove" value="8"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[8] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[9] == nil %>
+	<button class="block" type="submit" name="tttmove" value="9"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[9] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[10] == nil %>
+	<button class="block" type="submit" name="tttmove" value="10"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[10] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[11] == nil %>
+	<button class="block" type="submit" name="tttmove" value="11"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[11] %> </button>
+ <% end %>
+</td>
+</tr>
+<tr>
+<td>
+ <% if session[:game].currentBoard[12] == nil %>
+	<button class="block" type="submit" name="tttmove" value="12"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[12] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[13] == nil %>
+	<button class="block" type="submit" name="tttmove" value="13"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[13] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[14] == nil %>
+	<button class="block" type="submit" name="tttmove" value="14"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[14] %> </button>
+ <% end %>
+</td>
+<td>
+ <% if session[:game].currentBoard[15] == nil %>
+	<button class="block" type="submit" name="tttmove" value="15"></button>
+ <% else %>
+ 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[15] %> </button>
+ <% end %>
+</td>
+</tr>
+</tbody>
+</table>
+</form>
+<div class="newgamecontainer">
+	<form method="get" action="newgame">
+	<% if session[:game].winner == "X" %>
+		<p> You lost the game! </p>
+		<input type="submit" value="New Game">
+	<% elsif session[:game].winner == "O" %>
+		<p> You won the game! </p>
+		<input type="submit" value="New Game">
+	<% elsif session[:game].winner == "draw" %>
+		<p> Noone wins the game! </p>
+		<input type="submit" value="New Game">
+	<% end %>
+	</form>
+</div>
