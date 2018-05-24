@@ -1,3 +1,18 @@
+<script>
+var timeout;
+
+function myFunction() {
+    timeout = setTimeout(showPage, 1500);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("tictacload").style.display = "block";
+}
+</script>
+<div id="loader"></div>
+<div style="display:none;" id="tictacload" class="animate-bottom">
+<body onload="myFunction()" style="margin:0;">
 <form method="get" action="playermoved">
 <table>
 <tbody>
@@ -87,3 +102,11 @@
 	<% end %>
 	</form>
 </div>
+</div>
+
+
+
+
+
+
+
