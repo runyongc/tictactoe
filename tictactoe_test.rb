@@ -6,17 +6,17 @@ class TestTicTacToe < MiniTest::Test
 		assert_equal(1,1)
 	end
 	def test_winner_ai_3x3
-		testarray = ["O","O","O","O","O","O","O","O","O"]
+		testarray = ["O","O","O",nil,nil,nil,nil,nil,nil]
 		game = GameState.new("O", testarray)
-		assert_equal("O", game.winner)
+		assert_equal("p", game.winner)
 	end
 	def test_winner_player_3x3
-		testarray = ["X","X","X","X","X","X","X","X","X"]
+		testarray = ["X","X","X",nil,nil,nil,nil,nil,nil]
 		game = GameState.new("X", testarray)
-		assert_equal("X", game.winner)
+		assert_equal("o", game.winner)
 	end
 	def test_winner_nil_3x3
-		testarray = ["y","a","s","f","q","t","n","m"]
+		testarray = ["X","X","X","X","X","X","X","X","X"]
 		game = GameState.new("X", testarray)
 		assert_nil(nil, game.winner)
 	end
@@ -40,5 +40,10 @@ class TestTicTacToe < MiniTest::Test
 		testarray = ["y","a","s","f","q","t","n","m","s","a","t","y","u","q","i","p"]
 		game = GameState.new("X", testarray)
 		assert_nil(nil, game.winner)
+	end
+
+	def test_gameover
+		game = GameState.new("X", Array.new(9))
+		assert_equal(0, game.winner)
 	end
 end

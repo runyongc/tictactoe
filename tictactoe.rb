@@ -1,119 +1,138 @@
-class GameState
-	attr_accessor :current_player, :board, :moves, :rank
+class PerfectComputer
+  def initialize(game)
+  	@gameinstance = game
+  end
 
-	def initialize(current_player, board)
-		self.current_player = current_player
-		self.board = board
-		self.moves = []
-	end
+  def choose_space(game)
+  	@best_score = {}
+    negamax(game)
+    p @best_score.inspect
+    @best_score.max_by(&:last).first
 
-	def rank
-		@rank ||= final_state_rank || intermediate_state_rank
-	end
+  end
 
-	def next_move
-		moves.max{ |a, b| a.rank <=> b.rank }
-	end
+  private
 
-	def final_state_rank
-		if final_state?
-			return 0 if draw?
-			winner == "X" ? 1 : -1
-		end
-	end
+  def negamax(game, depth = 0, alpha = -1000, beta = 1000, color = 1)
+    
+    if game.game_over?
+        	return color * score_scenarios(depth, game)
+    end
+    
+    max = -1000
 
-	def final_state?
-		winner || draw?
-	end
+    game.check_available_spaces.each do |space|
+    	if depth >= 9
+    		break
+    	end
+      game.board[space] = game.current_player
+      game.current_player = game.current_player == 'X' ? 'O' : 'X'
+      negamax_value = -negamax(game, depth+1, -beta, -alpha, -color)
+      game.board[space] = nil
+      game.current_player = game.current_player == 'X' ? 'O' : 'X'
+      p "depth: #{depth}"
+      max = [max, negamax_value].max
+      @best_score[space] = max if depth == 0
+      alpha = [alpha, negamax_value].max
+      return alpha if alpha >= beta
 
-	def draw?
-		board.compact.size == 9 && winner.nil? || board.compact.size == 16 && winner.nil?
-	end
+    end
 
-	def intermediate_state_rank
-		ranks = moves.collect{ |game_state| game_state.rank }
-		if current_player == 'X'
-			ranks.max
-		else
-			ranks.min
-		end
-	end  
+    max
+  end
 
-	def winner
-		if board.length == 9
-			@winner ||= [
-		     # horizontal wins
-		     [0, 1, 2],
-		     [3, 4, 5],
-		     [6, 7, 8],
-
-		     # vertical wins
-		     [0, 3, 6],
-		     [1, 4, 7],
-		     [2, 5, 8],
-
-		     # diagonal wins
-		     [0, 4, 8],
-		     [6, 4, 2]
-		 ].collect { |positions|
-		 	( board[positions[0]] == board[positions[1]] &&
-		 	  board[positions[1]] == board[positions[2]] &&
-		 	  board[positions[0]] ) || nil }.compact.first
-		elsif board.length == 16
-			@winner ||= [
-		     # horizontal wins
-		     [0, 1, 2, 3],
-		     [4, 5, 6, 7],
-		     [8, 9, 10, 11],
-		     [12, 13, 14, 15],
-
-		     # vertical wins
-		     [0, 4, 8, 12],
-		     [1, 5, 9, 13],
-		     [2, 6, 10, 14],
-		     [3, 7, 11, 15],
-
-		     # diagonal wins
-		     [0, 5, 10, 15],
-		     [12, 9, 6, 3]
-		 ].collect { |positions| 
-		 	( board[positions[0]] == board[positions[1]] &&
-		 	  board[positions[1]] == board[positions[2]] && 
-		 	  board[positions[2]] == board[positions[3]] && 
-		 	  board[positions[0]]) || nil }.compact.first
-		end
-	end
+  def score_scenarios(depth, game)
+    return 0 if game.draw?
+    return 1000 / depth if game.winner == 'X'
+    return -1000 / depth if depth != 0
+    return -1000
+  end
 end
 
-class GameTree
-	def generate(gridsize)
-			@loading = 1
-			array = gridsize
-			@length = array.length
-			p "Loading board with gridsize #{@length}"
-			initial_game_state = GameState.new('X', array)
-			generate_moves(initial_game_state)
-			initial_game_state
-	end
+class GameState
+  attr_accessor :current_player, :board
 
-	def generate_moves(game_state)
-		next_player = (game_state.current_player == 'X' ? 'O' : 'X')
-		game_state.board.each_with_index do |player_at_position, position|
-			unless player_at_position
-				next_board = game_state.board.dup
-				next_board[position] = game_state.current_player
-				@loading = (@loading + 1)
-				p "loading, recursions #{@loading} length is #{@length} moves #{game_state.rank}"
-				next_game_state = GameState.new(next_player, next_board)
-				game_state.moves << next_game_state
-				generate_moves(next_game_state)
-			end
-		end
-	end
+
+  def initialize(current_player, board)
+    self.current_player = current_player
+    self.board = board
+  end
+  
+  def place_marker(space, marker)
+    board[space] = marker
+  end
+
+  def check_available_spaces
+    available = []
+    board.each_index do |ndx|
+      available << ndx if board[ndx].nil?
+    end
+    available
+  end
+
+
+  def game_over?
+    winner || draw?
+  end
+
+  def draw?
+   if board.length == 16
+       board.compact.size == 16 && winner.nil?
+   elsif board.length == 9
+   	   board.compact.size == 9 && winner.nil?
+   	end
+  end
+
+  def winner
+    if board.length == 9
+      @winner = nil	
+      @winner ||= [
+         # horizontal wins
+         [0, 1, 2],
+         [3, 4, 5],
+         [6, 7, 8],
+
+         # vertical wins
+         [0, 3, 6],
+         [1, 4, 7],
+         [2, 5, 8],
+
+         # diagonal wins
+         [0, 4, 8],
+         [6, 4, 2]
+     ].collect { |positions|
+      ( board[positions[0]] == board[positions[1]] &&
+        board[positions[1]] == board[positions[2]] &&
+        board[positions[0]]) || nil }.compact.first
+    elsif board.length == 16
+      @winner = nil	
+      @winner ||= [
+         # horizontal wins
+         [0, 1, 2, 3],
+         [4, 5, 6, 7],
+         [8, 9, 10, 11],
+         [12, 13, 14, 15],
+
+         # vertical wins
+         [0, 4, 8, 12],
+         [1, 5, 9, 13],
+         [2, 6, 10, 14],
+         [3, 7, 11, 15],
+
+         # diagonal wins
+         [0, 5, 10, 15],
+         [12, 9, 6, 3]
+     ].collect { |positions| 
+      ( board[positions[0]] == board[positions[1]] &&
+        board[positions[1]] == board[positions[2]] && 
+        board[positions[2]] == board[positions[3]] && 
+        board[positions[0]]) || nil }.compact.first
+    end
+  end
 end
 
 class TicTacToe
-	attr_accessor :currentBoard, :difficulty, :game_state, :gridsize
+	attr_accessor :currentBoard, :difficulty, :gridsize
 	def initialize(difficulty, gridsize)
 		@difficulty = difficulty
 		@gridsize = gridsize
@@ -123,33 +142,27 @@ class TicTacToe
 
 	def setupGame
 		if @difficulty == "hard" && @gridsize == "4"
-			@game_state = @initial_game_state = GameTree.new.generate(Array.new(16))
-			ai_move
+			@game_state = GameState.new('X', Array.new(16))
+			@ai = PerfectComputer.new(@game_state)
+		elsif @difficulty == "easy" && @gridsize == "4"
+			@game_state = GameState.new('X', Array.new(16))
 		elsif @difficulty == "hard" && @gridsize == "3"
-			@game_state = @initial_game_state = GameTree.new.generate(Array.new(9))
-			ai_move
+			@ai = PerfectComputer.new(@game_state)
+			@game_state = GameState.new('X', Array.new(9))
 		elsif @difficulty == "easy" && @gridsize == "3"
 			@game_state = GameState.new('X', Array.new(9))
-		elsif @difficulty == "easy" && @gridsize == "4"
-			@game_state = GameState.new('X', Array.new(12))
 		end
-
 	end
 
 	def ai_move
-		if @game_state.current_player == 'X' && @difficulty == "hard"
-			@game_state = @game_state.next_move
-			render_board
-		end
+			move = @ai.choose_space(@game_state)
+			@game_state.board[move] = 'X'
+			@game_state.winner
 	end
 
 	def player_move(string)
 		move = string.to_i
-		if @difficulty == 'hard'
-			@game_state.moves.find{ |game_state| game_state.board[move.to_i] == 'O' }
-		else 
-			@currentBoard[move] = 'O'
-		end
+		@currentBoard[move] = 'O'
 	end
 
 	def available_spaces
@@ -160,22 +173,18 @@ class TicTacToe
 		available
 	end
 
-	def place_piece(board, space, current_player)
-		board[space] = current_player
-	end
-
 	def winner
+		if @game_state.game_over?
 		if @game_state.winner == "X"
 			return "X"
 		elsif @game_state.winner
 			return "O"
+
 		elsif @game_state.draw?
 			return "draw"
+		else return nil
 		end
 	end
-
-	def finalize_ai_move
-		place_piece(board, @best_choice, "X")
 	end
 
 	def render_board
@@ -183,23 +192,24 @@ class TicTacToe
 	end
 
 	def ai_move_easy
-		if @difficulty == "easy" && !@game_state.final_state?
+		if @difficulty == "easy" && !@game_state.game_over?
 			move = available_spaces.sample
 			@currentBoard[move] = "X"
 		end
 	end
 
 	def hard_difficulty_round(string)
-		if @difficulty == "hard" && !@game_state.final_state?
-			move = @game_state.moves.find{ |game_state| game_state.board[string.to_i] == 'O' }
-			@game_state = move
+		if @difficulty == "hard" && !@game_state.game_over?
+			player_move(string)
+			if available_spaces.length > 0
 			ai_move
 			render_board
+		end
 		end
 	end
 
 	def easy_difficulty_round(string)
-		if @difficulty == "easy" && !@game_state.final_state?
+		if @difficulty == "easy" && !@game_state.game_over?
 			ai_move_easy
 			player_move(string)
 		end
@@ -207,7 +217,6 @@ class TicTacToe
 	
 	def playGame(string)
 		hard_difficulty_round(string)
-		easy_difficulty_round(string)
 	end
 end
 
