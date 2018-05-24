@@ -1,19 +1,22 @@
 <script>
 var timeout;
 
-function myFunction() {
+function loadtoggle() {
+	hidePage()
     timeout = setTimeout(showPage, 1500);
 }
-
+function hidePage()  {
+  document.getElementById("loader").style.display = "block";
+  document.getElementById("tictacload").style.display = "none";
+}
 function showPage() {
   document.getElementById("loader").style.display = "none";
   document.getElementById("tictacload").style.display = "block";
 }
 </script>
-<div id="loader"></div>
-<div style="display:none;" id="tictacload" class="animate-bottom">
-<body onload="myFunction()" style="margin:0;">
-<form method="get" action="playermoved">
+<div style="display:none;" id="loader"></div>
+<div style="display:block;" id="tictacload" class="animate-bottom">
+<form onsubmit="loadtoggle()" method="get" action="playermoved">
 <table>
 <tbody>
 <tr>
