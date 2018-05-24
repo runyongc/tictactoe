@@ -210,8 +210,9 @@ class TicTacToe
 
 	def easy_difficulty_round(string)
 		if @difficulty == "easy" && !@game_state.game_over?
-			ai_move_easy
 			player_move(string)
+			ai_move_easy
+			render_board
 		end
 	end
 	
