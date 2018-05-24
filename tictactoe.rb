@@ -217,6 +217,7 @@ class TicTacToe
 	
 	def playGame(string)
 		hard_difficulty_round(string)
+		easy_difficulty_round(string)
 	end
 end
 
