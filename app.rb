@@ -20,12 +20,13 @@ require_relative 'tictactoe.rb'
 
   helpers do
     def database_query
-      db = PG::Connection.new( "host=#{ENV['HOST']} port=#{ENV['PORT']} dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}" )
+      db = PG::Connection.new( "host=#{ENV['HOST']} port=5432 dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}" )
       session[:highscore] = db.exec('SELECT * FROM tictac_highscores;').to_a
+      p "#{ENV['HOST']}"
     end
 
     def update_highscores(column)
-      db = PG::Connection.new( "host=#{ENV['HOST']} port=#{ENV['PORT']} dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}"  )
+      db = PG::Connection.new( "host=#{ENV['HOST']} port=5432 dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}"  )
       columnname = column
       db.exec("UPDATE tictac_highscores SET #{columnname} = #{columnname} + 1")
     end
