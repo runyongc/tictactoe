@@ -1,4 +1,5 @@
 <div class='settings'>
+<body onload="<% database_query %>">
 <img src='<%= session[:profile_picture] %>'>
 <% if session[:authenticated] %>
 <h1>Welcome, <%= session[:name] %>!</h1>
@@ -30,8 +31,32 @@
       <h2>Highscores</h2>
     </div>
     <div class="modal-body">
-      <p>Some text in the Modal Body</p>
-      <p>Some other text...</p>
+      <table class="highscorestable">
+      <tbody>
+      <tr>
+      <td>
+      | Player Wins |
+      </td>
+      <td>
+       CPU Wins |
+      </td>
+      <td>
+      Draws |
+      </td>
+      </tr>
+      <tr>
+      <td>
+       <%= session[:highscore][0]["player_wins"] %>
+      </td>
+      <td>  
+       <%= session[:highscore][0]["cpu_wins"] %>
+      </td>
+      <td>
+       <%= session[:highscore][0]["draws"] %>
+      </td>
+      </tr>
+      </tbody>
+      </table>
     </div>
     <div class="modal-footer">
       <h3>By Grant Runyon</h3>

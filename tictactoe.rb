@@ -1,7 +1,4 @@
 class PerfectComputer
-  def initialize(game)
-  	@gameinstance = game
-  end
 
   def choose_space(game)
   	@best_score = {}
@@ -143,11 +140,11 @@ class TicTacToe
 	def setupGame
 		if @difficulty == "hard" && @gridsize == "4"
 			@game_state = GameState.new('X', Array.new(16))
-			@ai = PerfectComputer.new(@game_state)
+			@ai = PerfectComputer.new
 		elsif @difficulty == "easy" && @gridsize == "4"
 			@game_state = GameState.new('X', Array.new(16))
 		elsif @difficulty == "hard" && @gridsize == "3"
-			@ai = PerfectComputer.new(@game_state)
+			@ai = PerfectComputer.new
 			@game_state = GameState.new('X', Array.new(9))
 		elsif @difficulty == "easy" && @gridsize == "3"
 			@game_state = GameState.new('X', Array.new(9))

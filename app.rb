@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'json'
+require 'pg'
 require 'omniauth'
 require 'omniauth-facebook'
 require 'omniauth-google-oauth2'
@@ -17,7 +18,18 @@ require_relative 'tictactoe.rb'
     #provider :att, 'client_id', 'client_secret'
   end
 
-  
+  helpers do
+    def database_query
+      db = PG::Connection.new( "host=#{ENV['HOST']} port=#{ENV['PORT']} dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}" )
+      session[:highscore] = db.exec('SELECT * FROM tictac_highscores;').to_a
+    end
+
+    def update_highscores(column)
+      db = PG::Connection.new( "host=#{ENV['HOST']} port=#{ENV['PORT']} dbname=#{ENV['DBNAME']} user=#{ENV['USER']} password=#{ENV['PASSWORD']}"  )
+      columnname = column
+      db.exec("UPDATE tictac_highscores SET #{columnname} = #{columnname} + 1")
+    end
+  end
   get '/' do
     erb :index
   end
