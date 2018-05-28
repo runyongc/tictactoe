@@ -22,7 +22,6 @@ require_relative 'tictactoe.rb'
     def database_query
       db = PG::Connection.new(ENV['DATABASE_URL'])
       session[:highscore] = db.exec('SELECT * FROM tictac_highscores;').to_a
-      p "#{ENV['HOST']}"
     end
 
     def update_highscores(column)
