@@ -1,163 +1,160 @@
-<script>
-var timeout;
+<div style="display:block;" class="tictacload">
+  <table class="tictactoetable">
 
-function loadtoggle() {
-	hidePage()
-    timeout = setTimeout(showPage, 3500);
-}
-function hidePage()  {
-  document.getElementById("loader").style.display = "block";
-  document.getElementById("tictacload").style.display = "none";
-}
-function showPage() {
-  document.getElementById("loader").style.display = "none";
-  document.getElementById("tictacload").style.display = "block";
-}
-
-</script>
-<div style="display:none;" id="loader"></div>
-<div style="display:block;" id="tictacload" class="animate-bottom">
-<form onsubmit="loadtoggle()" method="get" action="playermoved">
-<table class="tictactoetable">
-<tbody>
-<tr>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[0] == nil %>
-	<button class="block" type="submit" name="tttmove" value="0"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[0] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[1] == nil %>
-	<button class="block" type="submit" name="tttmove" value="1"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[1] %> </button>
- <% end %>	
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[2] == nil %>
-	<button class="block" type="submit" name="tttmove" value="2"></button>
- <% else %>
-	<button class="block" type="button" disabled> <%= session[:game].currentBoard[2] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[3] == nil %>
-	<button class="block" type="submit" name="tttmove" value="3"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[3] %> </button>
- <% end %>
-</td>
-</tr>
-<tr>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[4] == nil %>
-	<button class="block" type="submit" name="tttmove" value="4"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[4] %> </button>
- <% end %>	
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[5] == nil %>
-	<button class="block" type="submit" name="tttmove" value="5"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[5] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[6] == nil %>
-	<button class="block" type="submit" name="tttmove" value="6"></button>
- <% else %>
-	<button class="block" type="button" disabled> <%= session[:game].currentBoard[6] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[7] == nil %>
-	<button class="block" type="submit" name="tttmove" value="7"></button>
- <% else %>
-	<button class="block" type="button" disabled> <%= session[:game].currentBoard[7] %> </button>
- <% end %>
-</td>
-</tr>
-<tr>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[8] == nil %>
-	<button class="block" type="submit" name="tttmove" value="8"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[8] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[9] == nil %>
-	<button class="block" type="submit" name="tttmove" value="9"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[9] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[10] == nil %>
-	<button class="block" type="submit" name="tttmove" value="10"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[10] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[11] == nil %>
-	<button class="block" type="submit" name="tttmove" value="11"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[11] %> </button>
- <% end %>
-</td>
-</tr>
-<tr>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[12] == nil %>
-	<button class="block" type="submit" name="tttmove" value="12"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[12] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[13] == nil %>
-	<button class="block" type="submit" name="tttmove" value="13"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[13] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[14] == nil %>
-	<button class="block" type="submit" name="tttmove" value="14"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[14] %> </button>
- <% end %>
-</td>
-<td class="tictactoevalue">
- <% if session[:game].currentBoard[15] == nil %>
-	<button class="block" type="submit" name="tttmove" value="15"></button>
- <% else %>
- 	<button class="block" type="button" disabled> <%= session[:game].currentBoard[15] %> </button>
- <% end %>
-</td>
-</tr>
-</tbody>
-</table>
-</form>
-<div class="newgamecontainer">
-	<form method="get" action="newgame">
-	<% if session[:game].winner == "X" %>
-	<% update_highscores("cpu_wins") %>
-		<p> You lost the game! </p>
-		<input type="submit" value="New Game">
-	<% elsif session[:game].winner == "O" %>
-	<% update_highscores("player_wins") %>
-		<p> You won the game! </p>
-		<input type="submit" value="New Game">
-	<% elsif session[:game].winner == "draw" %>
-	<% update_highscores("draws") %>
-		<p> Noone wins the game! </p>
-		<input type="submit" value="New Game">
-	<% end %>
-	</form>
-</div>
+    <tbody>
+    <tr>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[0] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh0" onclick="updateTTT('0')" value="<%= session[:game].currentBoard[0] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh0" value="<%= session[:game].currentBoard[0] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg0" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[1] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh1" onclick="updateTTT('1')" value="<%= session[:game].currentBoard[1] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh1" value="<%= session[:game].currentBoard[1] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg1" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[2] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh2" onclick="updateTTT('2')" value="<%= session[:game].currentBoard[2] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh2" value="<%= session[:game].currentBoard[2] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg2" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[3] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh3" onclick="updateTTT('3')" value="<%= session[:game].currentBoard[3] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh3" value="<%= session[:game].currentBoard[3] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg3" style="display: none;" src="Loading_icon.gif">
+      </td>
+    </tr>
+    <tr>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[4] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh4" onclick="updateTTT('4')" value="<%= session[:game].currentBoard[4] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh4" value="<%= session[:game].currentBoard[4] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg4" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[5] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh5" onclick="updateTTT('5')" value="<%= session[:game].currentBoard[5] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh5" value="<%= session[:game].currentBoard[5] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg5" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[6] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh6" onclick="updateTTT('6')" value="<%= session[:game].currentBoard[6] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh6" value="<%= session[:game].currentBoard[6] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg6" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[7] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh7" onclick="updateTTT('7')" value="<%= session[:game].currentBoard[7] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh7" value="<%= session[:game].currentBoard[7] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg7" style="display: none;" src="Loading_icon.gif">
+      </td>
+    </tr>
+    <tr>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[8] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh8" onclick="updateTTT('8')" value="<%= session[:game].currentBoard[8] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh8" value="<%= session[:game].currentBoard[8] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg8" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[9] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh9" onclick="updateTTT('9')" value="<%= session[:game].currentBoard[9] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh9" value="<%= session[:game].currentBoard[9] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg9" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[10] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh10" onclick="updateTTT('10')" value="<%= session[:game].currentBoard[10] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh10" value="<%= session[:game].currentBoard[10] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg10" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[11] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh11" onclick="updateTTT('11')" value="<%= session[:game].currentBoard[11] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh11" value="<%= session[:game].currentBoard[11] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg11" style="display: none;" src="Loading_icon.gif">
+      </td>
+    </tr>
+    <tr>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[12] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh12" onclick="updateTTT('12')" value="<%= session[:game].currentBoard[12] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh12" value="<%= session[:game].currentBoard[12] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg12" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[13] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh13" onclick="updateTTT('13')" value="<%= session[:game].currentBoard[13] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh13" value="<%= session[:game].currentBoard[13] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg13" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[14] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh14" onclick="updateTTT('14')" value="<%= session[:game].currentBoard[14] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh14" value="<%= session[:game].currentBoard[14] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg14" style="display: none;" src="Loading_icon.gif">
+      </td>
+      <td class="tictactoevalue">
+        <% if session[:game].currentBoard[15] == nil %>
+          <input type="button" class="block tictactext" id="tictacrefresh15" onclick="updateTTT('15')" value="<%= session[:game].currentBoard[15] %>">
+        <% else %>
+          <input type="button" class="block tictactext" id="tictacrefresh15" value="<%= session[:game].currentBoard[15] %>" disabled>
+        <% end %>
+        <img id="tictacrefreshimg15" style="display: none;" src="Loading_icon.gif">
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="newgamecontainer">
+    <form method="get" action="newgame">
+      <% if session[:game].winner == "X" %>
+        <% update_highscores("cpu_wins") %>
+        <p> You lost the game! </p>
+        <input type="submit" value="New Game">
+      <% elsif session[:game].winner == "O" %>
+        <% update_highscores("player_wins") %>
+        <p> You won the game! </p>
+        <input type="submit" value="New Game">
+      <% elsif session[:game].winner == "draw" %>
+        <% update_highscores("draws") %>
+        <p> Noone wins the game! </p>
+        <input type="submit" value="New Game">
+      <% end %>
+    </form>
+  </div>
 </div>

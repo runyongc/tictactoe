@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="<%= url("styles.css") %>">
   <title>Tic Tac Toe</title>
-  </head>
-  <body>
-   <%= yield %>
-  </body>
+</head>
+<body>
+<%= yield %>
+</body>
+<script>
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
+
+    (function () {
+        var ael = Node.prototype.addEventListener,
+            rel = Node.prototype.removeEventListener;
+        Node.prototype.addEventListener = function (a, b, c) {
+            console.log('Listener', 'added', this, a, b, c);
+            ael.apply(this, arguments);
+        };
+        Node.prototype.removeEventListener = function (a, b, c) {
+            console.log('Listener', 'removed', this, a, b, c);
+            rel.apply(this, arguments);
+        };
+    }());
+
+    function updateTTT(int) {
+        var number = int;
+        $(`#tictacrefresh${number}`).hide();
+        $(`#tictacrefreshimg${number}`).show();
+        $.ajax({
+            url: "/playermoved",
+            data: `tttmove=${number}`,
+            dataType: "html",
+            success: function (data) {
+                $(document).off();
+                sleep(1000);
+                $('.tictacload').html(data);
+            }
+        });
+    }
+
+</script>
 </html>

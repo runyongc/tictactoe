@@ -1,24 +1,25 @@
 <div class='settings'>
-<body onload="<% database_query %>">
-<img src='<%= session[:profile_picture] %>'>
-<% if session[:authenticated] %>
-<h1>Welcome, <%= session[:name] %>!</h1>
-<% else %>
-<h1>Welcome, Player One!</h1>
-<% end %>
-<p> Choose Difficulty </p>
-<form method="post" action="startgame">
-<input type="radio" name="difficulty" value="easy" checked>
-<label>Easy</label>
-<input type="radio" name="difficulty" value="hard">
-<label>Hard</label>
-<input type="radio" name="gridsize" value="3" checked>
-<label>3x3</label>
-<input type="radio" name="gridsize" value="4">
-<label>4x4</label>
-<input type="submit" value="Submit">
-</form>
-<button id="highscoresbtn">Highscores</button>
+  <body onload="
+    <% database_query %>">
+  <img src='<%= session[:profile_picture] %>'>
+  <% if session[:authenticated] %>
+    <h1>Welcome, <%= session[:name] %>!</h1>
+  <% else %>
+    <h1>Welcome, Player One!</h1>
+  <% end %>
+  <p> Choose Difficulty </p>
+  <form method="post" action="startgame">
+    <input type="radio" name="difficulty" value="easy" checked>
+    <label>Easy</label>
+    <input type="radio" name="difficulty" value="hard">
+    <label>Hard</label>
+    <input type="radio" name="gridsize" value="3" checked>
+    <label>3x3</label>
+    <input type="radio" name="gridsize" value="4">
+    <label>4x4</label>
+    <input type="submit" value="Submit">
+  </form>
+  <button id="highscoresbtn">Highscores</button>
 </div>
 
 
@@ -32,30 +33,30 @@
     </div>
     <div class="modal-body">
       <table class="highscorestable">
-      <tbody>
-      <tr>
-      <td>
-      | Player Wins |
-      </td>
-      <td>
-       CPU Wins |
-      </td>
-      <td>
-      Draws |
-      </td>
-      </tr>
-      <tr>
-      <td>
-       <%= session[:highscore][0]["player_wins"] %>
-      </td>
-      <td>  
-       <%= session[:highscore][0]["cpu_wins"] %>
-      </td>
-      <td>
-       <%= session[:highscore][0]["draws"] %>
-      </td>
-      </tr>
-      </tbody>
+        <tbody>
+        <tr>
+          <td>
+            | Player Wins |
+          </td>
+          <td>
+            CPU Wins |
+          </td>
+          <td>
+            Draws |
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <%= session[:highscore][0]["player_wins"] %>
+          </td>
+          <td>
+            <%= session[:highscore][0]["cpu_wins"] %>
+          </td>
+          <td>
+            <%= session[:highscore][0]["draws"] %>
+          </td>
+        </tr>
+        </tbody>
       </table>
     </div>
     <div class="modal-footer">
@@ -66,19 +67,19 @@
 </div>
 
 <script>
-var modal = document.getElementById('highscoresmodal');
-var btn = document.getElementById("highscoresbtn");
-var span = document.getElementsByClassName("close")[0];
- 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-span.onclick = function() {
-    modal.style.display = "none";
-}
-window.onclick = function(event) {
-    if (event.target == modal) {
+    var modal = document.getElementById('highscoresmodal');
+    var btn = document.getElementById("highscoresbtn");
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    };
+    span.onclick = function () {
         modal.style.display = "none";
+    };
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
-}
 </script>
