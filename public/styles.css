@@ -1,3 +1,18 @@
+body {
+    background: url("AdobeStock_103823509.jpeg") no-repeat center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    color: #e01a1f;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.tictacimg {
+    height: 100%;
+    width: 100%;
+}
+
 .block {
     display: block;
     width: 100%;
@@ -9,6 +24,14 @@
     font-size: 38px;
     cursor: pointer;
     text-align: center;
+}
+
+.socialbtn {
+    display: block;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    vertical-align: top;
+    max-height: 100px;
 }
 
 .tictactoetable {
@@ -33,18 +56,17 @@
     margin-right: auto;
 }
 
-body {
-    text-align: center;
-}
 
 .newgamecontainer {
     width: 800px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .settings {
     width: 800px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .modal {
@@ -78,6 +100,12 @@ body {
 img {
     max-width: 100%;
     max-height: 100%;
+}
+
+fieldset {
+    width: 25%;
+    height: 50%;
+    float: right;
 }
 
 @-webkit-keyframes animatetop {
